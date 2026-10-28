@@ -45,4 +45,28 @@ Production build and ESLint pass. Browser checks cover desktop hero, sticky port
 
 Four behavior tests (`node --test tests/scroll-reveals.test.mjs`) cover above-fold visibility, one-time reveal, reduced-motion changes, cleanup, and unsupported-observer fallback. Reduced-motion styling is also checked from CSS rules. No frame-rate or device-performance claim is made; a mid-range phone recording remains the appropriate measurement for hardware-specific smoothness.
 
-No deployment is performed by this local redesign work.
+## Pinned project sequence (October 2026)
+
+Inspired by the reference site's scroll-driven project deck, selected work now progresses
+through a layered card stack beside the stationary desktop portrait. Mobile reserves
+24svh (160–205px) for the portrait and places the deck below it. Skills retain their
+one-time upward/fade reveals. The orange/cream identity is unchanged.
+
+`ProjectSequence` is a progressive client enhancement around server-rendered cards.
+Native CSS sticky controls positioning; a passive scroll listener schedules one animation
+frame to update each layer's transform and opacity. React updates only when the active
+project changes, not each frame. There is no scroll interception or new dependency.
+The reading pause, card progression, and reverse motion are deterministic geometry.
+
+Each card remains fully readable. If the tallest card plus controls and portrait cannot
+fit the viewport, pinning is not enabled. Reduced-motion and unsupported ResizeObserver
+also keep all projects in normal flow. Direct project buttons support keyboard navigation;
+inactive layers are inert and excluded from the accessibility tree. A list-view toggle
+exposes all cards and preserves the current project when switching views. Observer,
+listener and animation-frame cleanup restores the original document on unmount.
+
+Validation includes unit tests for scroll geometry, reversal, interactive-card selection,
+enhancement cleanup, reduced motion, short screens and unsupported-browser fallback;
+plus browser inspection of desktop and mobile native scrolling and list mode. Browser
+viewport checks do not replace measurements on physical mobile hardware. No frame-rate
+claim is made. This iteration is local only until separately deployed.

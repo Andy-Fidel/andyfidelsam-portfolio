@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import ScrollReveals from "./scroll-reveals";
+import ProjectSequence from "./project-sequence";
 import styles from "./portfolio.module.css";
 export const metadata: Metadata = {
     title: "Andy-Fidel Samuel — Full-stack Product Engineer",
@@ -154,8 +155,8 @@ export default function Home() {
         <section className={`${styles.chapter} ${styles.work}`} id="work" aria-labelledby="work-heading">
           <div className={styles.chapterLabel}><span>02 / Selected work</span><span>2026 collection</span></div>
           <div className={styles.reveal} data-reveal><h2 className={styles.sectionTitle} id="work-heading">Built for<br /><em>the real world.</em></h2><p className={styles.sectionLead}>Real workflows. Considered interfaces. Systems built to keep working after launch.</p></div>
-          <div className={styles.projects}>
-            {projects.map(project => <article className={`${styles.project} ${styles.reveal}`} data-reveal key={project.title}>
+          <ProjectSequence titles={projects.map(project => project.title)}>
+            {projects.map(project => <article className={styles.project} key={project.title}>
               <div className={styles.projectMedia} style={{ "--project-accent": ({ acid: "#d1ed8c", coral: "#f4aa8c", blue: "#bdd5e8", gold: "#edcf83", orange: "#e9af87" } as Record<string, string>)[project.accent] } as CSSProperties}>
                 <small>{project.preview ? "Live product" : "Interface concept"}</small>
                 {project.preview ? <Image src={project.preview} alt={project.previewAlt ?? project.title} width={1000} height={573} sizes="(max-width: 700px) calc(100vw - 80px), 43vw"/> : <div>
@@ -177,7 +178,7 @@ export default function Home() {
                 </div>
               </div>
             </article>)}
-          </div>
+          </ProjectSequence>
         </section>
         <section className={`${styles.chapter} ${styles.about}`} id="about" aria-labelledby="about-heading">
           <div className={styles.chapterLabel}><span>03 / The person behind the work</span></div>
